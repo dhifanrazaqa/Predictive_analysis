@@ -114,6 +114,13 @@ Random Forest Regressor adalah algoritma regresi berbasis Decision Tree yang men
 - Training lambat karena menggunakan banyak Decision Tree
 - Kurang optimal untuk dataset kecil   
 #### **Parameter:**   
+- n_estimators – Jumlah pohon dalam hutan. Semakin banyak pohon, semakin stabil prediksi, tetapi juga meningkatkan biaya komputasi.
+- criterion – Metode yang digunakan untuk mengukur kualitas pemisahan pada tiap pohon. Untuk regresi, nilai yang umum digunakan adalah 'squared_error' (default) atau 'absolute_error'.
+- max_depth: Kedalaman maksimum dari setiap pohon. Semakin dalam pohon, semakin kompleks modelnya, tetapi juga meningkatkan risiko overfitting.
+- min_samples_split: Jumlah sampel minimum yang diperlukan agar sebuah node dapat dipecah menjadi dua cabang baru. Nilai yang lebih tinggi mengurangi kompleksitas pohon.
+- min_samples_leaf: Jumlah sampel minimum yang harus dimiliki setiap daun. Ini membantu dalam mengontrol overfitting.
+- max_features: Jumlah fitur maksimum yang akan dipertimbangkan untuk membagi node. Bisa berupa nilai 'auto', 'sqrt', atau 'log2', bergantung pada strategi pemilihan fitur.
+- random_state: Nilai yang digunakan untuk mengontrol keacakan model, sehingga hasil dapat direproduksi dalam beberapa eksperimen.
 - Pada base model tidak dilakukan penyesuaian hyperparameter, semua hyperparameter yang digunakan adalah default.
 - Pada Tuned model parameter seperti n_estimator, max_depth, min_samples_split, dan min_samples_leaf diatur nilainya mengikuti hasil dari Hyperparameter Tuning.   
 #### **Improvement Hyperparameter Tuning:**   
@@ -130,46 +137,74 @@ Linear Regression adalah algoritma machine learning yang digunakan untuk memodel
 - Sensitif terhadap outlier
 - Kurang akurat untuk data yang tidak benar-benar linear     
 #### **Parameter:**   
+- fit_intercept: Jika `True`, model akan menyertakan intercept (bias). Jika `False`, model akan dipaksa melewati titik asal (0).
+- positive: Jika `True`, semua koefisien regresi akan dipaksa bernilai positif. Ini berguna dalam kasus di mana asumsi positif diperlukan, misalnya dalam beberapa model ekonomi.
 - Pada model tidak dilakukan penyesuaian hyperparameter, semua hyperparameter yang digunakan adalah default.
 
 ### Memilih Model Terbaik
-Tanpa melihat hasil dari evaluasi model, algoritma yang akan dipilih sebagai solusi adalah Linear Regression karena sangat cocok dengan karateristik dataset yang digunakan. Linear Regression sensitif terhadap outlier dan pada dataset yang digunakan tidak terdapat outlier. Selain itu, Linear Regression juga efektif untuk dataset yang besar, dataset yang digunakan memang tidak terlalu besar tetapi sangat cocok untuk algoritma ini. 
+Tanpa melihat hasil dari evaluasi model, algoritma yang akan dipilih sebagai solusi adalah **Linear Regression** karena sangat cocok dengan karateristik dataset yang digunakan. Linear Regression sensitif terhadap outlier dan pada dataset yang digunakan tidak terdapat outlier. Selain itu, Linear Regression juga efektif untuk dataset yang besar, dataset yang digunakan memang tidak terlalu besar tetapi sangat cocok untuk algoritma ini. 
 
 ## Evaluation
 Metrik evaluasi yang digunakan dalam kasus ini adalah Mean Squared Error (MSE), Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), dan R² Score. Keempat metrik ini sesuai digunakan dengan konteks data, problem statement, dan solusi yang diinginkan untuk kasus prediksi tingkat konsumsi energi.
 ### Mean Squared Error
 ![dos-b717066bbe42ad8d092945ed8a1b152420241016110235](https://github.com/user-attachments/assets/317a7533-2001-4d9d-abb6-8503b3507c15)    
-Mean Squared Error (MSE) adalah metrik yang menghitung rata-rata kuadrat selisih antara nilai aktual dan nilai prediksi. Dengan mengkuadratkan selisih tersebut, MSE memberikan bobot lebih besar terhadap kesalahan yang lebih besar, sehingga lebih sensitif terhadap outlier. Metrik ini sering digunakan dalam regresi karena memberikan gambaran seberapa jauh prediksi menyimpang dari nilai sebenarnya, tetapi satuannya adalah kuadrat dari variabel target, yang bisa membuat interpretasi menjadi kurang intuitif.
+Mean Squared Error (MSE) adalah metrik yang menghitung rata-rata kuadrat selisih antara nilai aktual dan nilai prediksi. Dengan mengkuadratkan selisih tersebut, MSE memberikan bobot lebih besar terhadap kesalahan yang lebih besar sehingga lebih sensitif terhadap outlier. Metrik ini sering digunakan dalam regresi karena memberikan gambaran seberapa jauh prediksi menyimpang dari nilai sebenarnya, tetapi satuannya adalah kuadrat dari variabel target, yang bisa membuat interpretasi menjadi lebih sulit.
 
 ### Root Mean Squared Error
 ![image](https://github.com/user-attachments/assets/05249e0c-ac49-48f6-a13d-2ddc98c42856)    
-Root Mean Squared Error (RMSE) adalah akar dari MSE, yang mengembalikan kesalahan ke skala asli variabel target, sehingga lebih mudah diinterpretasikan dibandingkan MSE. Karena RMSE masih berbasis kuadrat, ia tetap sensitif terhadap outlier, tetapi lebih intuitif dalam memahami seberapa besar rata-rata kesalahan prediksi dalam satuan yang sama dengan target. RMSE sering digunakan ketika model harus menangani variasi data yang besar dan di mana penalti untuk kesalahan yang lebih besar perlu diperhatikan.
+Root Mean Squared Error (RMSE) adalah akar dari MSE, yang mengembalikan kesalahan ke skala asli variabel target sehingga lebih mudah diinterpretasikan dibandingkan MSE. Karena RMSE masih berbasis kuadrat, ia tetap sensitif terhadap outlier, tetapi lebih mudah dalam memahami seberapa besar rata-rata kesalahan prediksi dalam satuan yang sama dengan target. RMSE sering digunakan ketika model harus menangani variasi data yang besar dan dimana penalti untuk kesalahan yang lebih besar perlu diperhatikan.
 
 ### Mean Absolute Error
 ![dos-11feda41b23139f0de73ed8c634dc6e920241016110235](https://github.com/user-attachments/assets/8bb43129-3aa0-4fb7-bda6-2fe0fc75b149)    
-Mean Absolute Error (MAE) mengukur rata-rata selisih absolut antara nilai aktual dan prediksi tanpa mengkuadratkan error, sehingga tidak terlalu dipengaruhi oleh outlier dibandingkan MSE atau RMSE. MAE lebih mudah diinterpretasikan karena nilainya dalam skala yang sama dengan variabel target. Namun, MAE tidak menangkap perbedaan besar dalam kesalahan dengan cara yang sama seperti MSE atau RMSE, sehingga tidak memberikan bobot lebih pada kesalahan besar.
+Mean Absolute Error (MAE) mengukur rata-rata selisih absolut antara nilai aktual dan prediksi tanpa mengkuadratkan error sehingga tidak terlalu dipengaruhi oleh outlier dibandingkan MSE atau RMSE. MAE lebih mudah diinterpretasikan karena nilainya dalam skala yang sama dengan variabel target. Namun, MAE tidak menangkap kesalahan dengan cara yang sama seperti MSE atau RMSE sehingga tidak memberikan bobot lebih pada kesalahan besar.
 
 ### R² Score
 ![dos-f54b3a820aa37b345729c961c3e01f4f20241016110235](https://github.com/user-attachments/assets/ec3615f4-96cd-4852-b816-b5b2dd664c67)    
 R² juga dikenal sebagai coefficient of determination adalah salah satu metrik yang digunakan untuk mengevaluasi seberapa baik model regresi linear menjelaskan variasi dalam data. R² memberikan ukuran proporsi variasi dalam variabel dependen (output) yang dapat dijelaskan oleh variabel independen (input) dalam model. R² dihitung dengan menggunakan perbandingan antara variasi total dalam data dan variasi yang dapat dijelaskan oleh model regresi.
 
+### Hasil Evaluasi
+Setelah proses evaluasi dilakukan, didapatkan hasil sebagai berikut:    
+**Random Forest Regressor - Base Model Results:**   
+Mean Squared Error: 63.3328    
+Root Mean Squared Error: 7.9582   
+Mean Absolute Error: 6.3270   
+R² Score: 0.2412   
 
+**Random Forest Regressor - Tuned Model Results:**   
+Best parameters for Random Forest: {'max_depth': 10, 'min_samples_leaf': 4, 'min_samples_split': 10, 'n_estimators': 300}   
+Mean Squared Error: 62.3381   
+Root Mean Squared Error: 7.8954   
+Mean Absolute Error: 6.2701   
+R² Score: 0.2531   
 
+**Linear Regression Results:**   
+Mean Squared Error: 60.9822   
+Root Mean Squared Error: 7.8091   
+Mean Absolute Error: 6.1574   
+R² Score: 0.2694   
 
-Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
+### K-Fold Validation
+Menggunakan konsep K-Cross Validation untuk mendapatkan nilai RMSE yang lebih akurat dengan membagi data menjadi k-fold, menggunakan k-1 fold untuk train dan 1 fold untuk validasi. Proses kemudian diulang sampai semua fold pernah digunakan untuk validasi.   
+**Hasil 5-Fold Validation:**
+- **Random Forest (Tuned):**   
+Cross-validation RMSE scores: [5.77532659 7.98121379 8.27647373 8.18103573 8.08924738]   
+Mean CV RMSE: 7.6607   
+Standard deviation of CV RMSE: 0.9477   
 
-Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
-- Penjelasan mengenai metrik yang digunakan
-- Menjelaskan hasil proyek berdasarkan metrik evaluasi
+- **Linear Regression:**   
+Cross-validation RMSE scores: [5.69639641 7.99958595 8.24482453 8.13418301 8.1176487 ]   
+Mean CV RMSE: 7.6385   
+Standard deviation of CV RMSE: 0.9742   
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+## Conclusion & Recommendation
+Hasil akhir dari evaluasi adalah sebagai berikut:    
+**Random Forest (Base) - RMSE: 7.9582, R²: 0.2412**   
+**Random Forest (Tuned) - RMSE: 7.8954, R²: 0.2531**   
+**Linear Regression - RMSE: 7.8091, R²: 0.2694**   
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+**Recommendation:**   
+The best performing model is **Linear Regression with an R² score of 0.2694 and RMSE of 7.8091**   
+
+Berdasarkan metrik-metrik diatas, model Linear Regression mendapatkan performa yang paling baik. Hal ini menunjukkan bahwa kompleksitas algoritma tidak menjamin bahwa algoritma itu akan menghasilkan performa yang baik di semua jenis dataset. Linear Regression yang terkenal dengan algoritmanya yang tidak terlalu kompleks lebih cocok untuk diterapkan pada dataset prediksi konsumsi energi. Hasil dari 5-Fold Cross Validation juga menyatakan performa dari algoritma Linear Regression lebih baik dari Random Forest Regressor. Hasil pengembangan model prediksi konsumsi energi ini diharapkan dapat membantu untuk optimasi konsumsi energi di berbagai tempat sehingga dapat membantu mengurangi dampak krisis energi global dan meningkatkan pemanfaatn energi terbarukan.
 
 **---Ini adalah bagian akhir laporan---**
-
-_Catatan:_
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
-
