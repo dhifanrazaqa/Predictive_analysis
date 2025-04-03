@@ -106,26 +106,56 @@ Standarisasi diperlukan karena banyak algoritma machine learning, seperti regres
 Model machine learning yang digunakan pada proyek ini adalah Random Forest Regressor dan Linear Regression. Keduanya akan digunakan untuk memecahkan masalah regresi untuk prediksi konsumsi energi.
 
 ### Random Forest Regressor Base & Hyperparameter Tuning   
-Random Forest Regressor adalah algoritma regresi berbasis Decision Tree yang menggunakan banyak pohon (ensemble learning) untuk membuat prediksi yang lebih akurat dan stabil dibandingkan satu Decision Tree. Model ini bekerja dengan membangun beberapa Decision Tree dan menggabungkan hasilnya dengan rata-rata prediksi dari semua pohon.
-**Kelebihan:**
+Random Forest Regressor adalah algoritma regresi berbasis Decision Tree yang menggunakan banyak pohon (ensemble learning) untuk membuat prediksi yang lebih akurat dan stabil dibandingkan satu Decision Tree. Model ini bekerja dengan membangun beberapa Decision Tree dan menggabungkan hasilnya dengan rata-rata prediksi dari semua pohon.   
+#### **Kelebihan:**   
 - Lebih akurat karena merupakan ensemble learning
-- Lebih toleran terhadap outlier karena menggunakan banyak Decision Tree
-**Kekurangan:**
+- Lebih toleran terhadap outlier karena menggunakan banyak Decision Tree          
+#### **Kekurangan:**   
 - Training lambat karena menggunakan banyak Decision Tree
-- Kurang optimal untuk dataset kecil
-**Parameter:**
+- Kurang optimal untuk dataset kecil   
+#### **Parameter:**   
 - Pada base model tidak dilakukan penyesuaian hyperparameter, semua hyperparameter yang digunakan adalah default.
-- Pada Tuned model parameter seperti n_estimator, max_depth, min_samples_split, dan min_samples_leaf diatur nilainya mengikuti hasil dari Hyperparameter Tuning.
-**Improvement Hyperparameter Tuning:**
-Proses Hyperparameter Tuning yang dilakukan menggunakan teknik GridSearchCV yang akan mencoba satu-persatu semua kemungkinan parameter terbaik, hasil akhirnya adalah sekumpulan parameter yang menghasilkan performa model paling baik. Setelah proses GridSearchCV hasil parameter terbaiknya adalah: ``'max_depth': 10, 'min_samples_leaf': 4, 'min_samples_split': 10, 'n_estimators': 300}
+- Pada Tuned model parameter seperti n_estimator, max_depth, min_samples_split, dan min_samples_leaf diatur nilainya mengikuti hasil dari Hyperparameter Tuning.   
+#### **Improvement Hyperparameter Tuning:**   
+Proses Hyperparameter Tuning yang dilakukan menggunakan teknik GridSearchCV yang akan mencoba satu-persatu semua kemungkinan parameter terbaik, hasil akhirnya adalah sekumpulan parameter yang menghasilkan performa model paling baik.   
+Setelah proses GridSearchCV hasil parameter terbaiknya adalah:   
+`{'max_depth': 10, 'min_samples_leaf': 4, 'min_samples_split': 10, 'n_estimators': 300}`
 
+### Linear Regression    
+Linear Regression adalah algoritma machine learning yang digunakan untuk memodelkan hubungan antara variabel independen (features) dan variabel dependen (target) menggunakan garis lurus. Model ini mencoba menemukan koefisien terbaik yang meminimalkan selisih antara prediksi dan nilai sebenarnya dengan metode Least Squares.
+#### **Kelebihan:**   
+- Sederhana dan mudah dipahami
+- Cepat dan efisien untuk dataset besar        
+#### **Kekurangan:**   
+- Sensitif terhadap outlier
+- Kurang akurat untuk data yang tidak benar-benar linear     
+#### **Parameter:**   
+- Pada model tidak dilakukan penyesuaian hyperparameter, semua hyperparameter yang digunakan adalah default.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
-- Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
-- Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
+### Memilih Model Terbaik
+Tanpa melihat hasil dari evaluasi model, algoritma yang akan dipilih sebagai solusi adalah Linear Regression karena sangat cocok dengan karateristik dataset yang digunakan. Linear Regression sensitif terhadap outlier dan pada dataset yang digunakan tidak terdapat outlier. Selain itu, Linear Regression juga efektif untuk dataset yang besar, dataset yang digunakan memang tidak terlalu besar tetapi sangat cocok untuk algoritma ini. 
 
 ## Evaluation
+Metrik evaluasi yang digunakan dalam kasus ini adalah Mean Squared Error (MSE), Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), dan R² Score. Keempat metrik ini sesuai digunakan dengan konteks data, problem statement, dan solusi yang diinginkan untuk kasus prediksi tingkat konsumsi energi.
+### Mean Squared Error
+![dos-b717066bbe42ad8d092945ed8a1b152420241016110235](https://github.com/user-attachments/assets/317a7533-2001-4d9d-abb6-8503b3507c15)    
+Mean Squared Error (MSE) adalah metrik yang menghitung rata-rata kuadrat selisih antara nilai aktual dan nilai prediksi. Dengan mengkuadratkan selisih tersebut, MSE memberikan bobot lebih besar terhadap kesalahan yang lebih besar, sehingga lebih sensitif terhadap outlier. Metrik ini sering digunakan dalam regresi karena memberikan gambaran seberapa jauh prediksi menyimpang dari nilai sebenarnya, tetapi satuannya adalah kuadrat dari variabel target, yang bisa membuat interpretasi menjadi kurang intuitif.
+
+### Root Mean Squared Error
+![image](https://github.com/user-attachments/assets/05249e0c-ac49-48f6-a13d-2ddc98c42856)    
+Root Mean Squared Error (RMSE) adalah akar dari MSE, yang mengembalikan kesalahan ke skala asli variabel target, sehingga lebih mudah diinterpretasikan dibandingkan MSE. Karena RMSE masih berbasis kuadrat, ia tetap sensitif terhadap outlier, tetapi lebih intuitif dalam memahami seberapa besar rata-rata kesalahan prediksi dalam satuan yang sama dengan target. RMSE sering digunakan ketika model harus menangani variasi data yang besar dan di mana penalti untuk kesalahan yang lebih besar perlu diperhatikan.
+
+### Mean Absolute Error
+![dos-11feda41b23139f0de73ed8c634dc6e920241016110235](https://github.com/user-attachments/assets/8bb43129-3aa0-4fb7-bda6-2fe0fc75b149)    
+Mean Absolute Error (MAE) mengukur rata-rata selisih absolut antara nilai aktual dan prediksi tanpa mengkuadratkan error, sehingga tidak terlalu dipengaruhi oleh outlier dibandingkan MSE atau RMSE. MAE lebih mudah diinterpretasikan karena nilainya dalam skala yang sama dengan variabel target. Namun, MAE tidak menangkap perbedaan besar dalam kesalahan dengan cara yang sama seperti MSE atau RMSE, sehingga tidak memberikan bobot lebih pada kesalahan besar.
+
+### R² Score
+![dos-f54b3a820aa37b345729c961c3e01f4f20241016110235](https://github.com/user-attachments/assets/ec3615f4-96cd-4852-b816-b5b2dd664c67)    
+R² juga dikenal sebagai coefficient of determination adalah salah satu metrik yang digunakan untuk mengevaluasi seberapa baik model regresi linear menjelaskan variasi dalam data. R² memberikan ukuran proporsi variasi dalam variabel dependen (output) yang dapat dijelaskan oleh variabel independen (input) dalam model. R² dihitung dengan menggunakan perbandingan antara variasi total dalam data dan variasi yang dapat dijelaskan oleh model regresi.
+
+
+
+
 Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
 
 Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
