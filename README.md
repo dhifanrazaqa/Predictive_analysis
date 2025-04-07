@@ -59,27 +59,27 @@ Dataset yang digunakan adalah dataset [Energy Consumption Prediction](https://ww
 
 ### Exploratory Data Analysis (EDA)
 - **Distribusi Konsumsi Energi**
-  ![download](https://github.com/user-attachments/assets/8cb638cc-abfd-48c9-8761-179d7f3ce4cb)
+  ![download](https://raw.githubusercontent.com/dhifanrazaqa/Predictive_analysis/refs/heads/main/download.png)
   Nilai konsumsi energi paling banyak ada di rentang 70-80. Hal ini menunjukkan tren konsumsi energi yang tidak terlalu tinggi atau rendah, tetapi berada di tengah-tengah.
 
 - **Distribusi Penggunaan HVAC**
-  ![download](https://github.com/user-attachments/assets/6c24fc68-7dba-4263-b9df-d15262782f70)
+  ![download](https://raw.githubusercontent.com/dhifanrazaqa/Predictive_analysis/refs/heads/main/download-1.png)
   Distribusi penggunaan HVAC (Heating, Ventilation, and Air Conditioning systems) cukup merata, jumlah nilai on dan off pada penggunaan HVAC bisa dibilang sama.
   
 - **Distribusi Penggunaan Pencahayaan**
-  ![download](https://github.com/user-attachments/assets/a92b593d-e793-408f-9804-cfbb96d7837f)
+  ![download](https://raw.githubusercontent.com/dhifanrazaqa/Predictive_analysis/refs/heads/main/download-2.png)
   Distribusi penggunaan pencahayaan atau lampu juga cukup merata, jumlah nilai on dan off pada penggunaan pencahayaan bisa dibilang hampir sama.
   
 - **Konsumsi Energi Berdasarkan Bulan**
-  ![download](https://github.com/user-attachments/assets/3441a00f-4ffd-4cce-be5c-3b3cf648d433)
+  ![download](https://raw.githubusercontent.com/dhifanrazaqa/Predictive_analysis/refs/heads/main/download-3.png)
   Menunjukkan tren konsumsi energi setiap bulannya, bulan ke-4 atau bulan April menjadi bulan dengan rata-rata konsumsi energi yang paling tinggi. Bulan Juni menduduki posisi sebagai bulan dengan konsumsi energi yang paling rendah.
   
 - **Konsumsi Energi Berdasarkan Hari dalam Seminggu**
-  ![download](https://github.com/user-attachments/assets/879e1e18-3fd3-433f-bcd4-235dbab1b219)
+  ![download](https://raw.githubusercontent.com/dhifanrazaqa/Predictive_analysis/refs/heads/main/download-4.png)
   Tren menunjukkan hari Sabtu menjadi hari dengan konsumsi energi paling banyak, hal ini mungkin disebabkan oleh weekend sehingga lebih banyak orang di rumah. Hari Senin menjadi hari dengan konsumsi energi terendah, biasanya orang berada di luar rumah ketika hari Senin.
   
 - **Hubungan antara Suhu dan Konsumsi Energi**
-  ![download](https://github.com/user-attachments/assets/2e61570a-484a-44b0-840c-ab4448baf277)
+  ![download](https://raw.githubusercontent.com/dhifanrazaqa/Predictive_analysis/refs/heads/main/download-5.png)
   Terdapat hubungan yang menarik antara suhu dengan konsumsi energi, dimana dengan naiknya suhu meningkat juga konsumsi energinya. Hubungan ini didapatkan melalui penggunaan HVAC (Heating, Ventilation, and Air Conditioning systems) yang akan "On" saat suhu meningkat atau panas.
 
 ## Data Preparation
@@ -147,19 +147,19 @@ Tanpa melihat hasil dari evaluasi model, algoritma yang akan dipilih sebagai sol
 ## Evaluation
 Metrik evaluasi yang digunakan dalam kasus ini adalah Mean Squared Error (MSE), Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), dan R² Score. Keempat metrik ini sesuai digunakan dengan konteks data, problem statement, dan solusi yang diinginkan untuk kasus prediksi tingkat konsumsi energi.
 ### Mean Squared Error
-![dos-b717066bbe42ad8d092945ed8a1b152420241016110235](https://github.com/user-attachments/assets/317a7533-2001-4d9d-abb6-8503b3507c15)    
+![dos-b717066bbe42ad8d092945ed8a1b152420241016110235](https://raw.githubusercontent.com/dhifanrazaqa/Predictive_analysis/refs/heads/main/dos-b717066bbe42ad8d092945ed8a1b152420241016110235.jpg)    
 Mean Squared Error (MSE) adalah metrik yang menghitung rata-rata kuadrat selisih antara nilai aktual dan nilai prediksi. Dengan mengkuadratkan selisih tersebut, MSE memberikan bobot lebih besar terhadap kesalahan yang lebih besar sehingga lebih sensitif terhadap outlier. Metrik ini sering digunakan dalam regresi karena memberikan gambaran seberapa jauh prediksi menyimpang dari nilai sebenarnya, tetapi satuannya adalah kuadrat dari variabel target, yang bisa membuat interpretasi menjadi lebih sulit.
 
 ### Root Mean Squared Error
-![image](https://github.com/user-attachments/assets/05249e0c-ac49-48f6-a13d-2ddc98c42856)    
+![image](https://raw.githubusercontent.com/dhifanrazaqa/Predictive_analysis/refs/heads/main/Screenshot%202025-04-04%20061425.png)    
 Root Mean Squared Error (RMSE) adalah akar dari MSE, yang mengembalikan kesalahan ke skala asli variabel target sehingga lebih mudah diinterpretasikan dibandingkan MSE. Karena RMSE masih berbasis kuadrat, ia tetap sensitif terhadap outlier, tetapi lebih mudah dalam memahami seberapa besar rata-rata kesalahan prediksi dalam satuan yang sama dengan target. RMSE sering digunakan ketika model harus menangani variasi data yang besar dan dimana penalti untuk kesalahan yang lebih besar perlu diperhatikan.
 
 ### Mean Absolute Error
-![dos-11feda41b23139f0de73ed8c634dc6e920241016110235](https://github.com/user-attachments/assets/8bb43129-3aa0-4fb7-bda6-2fe0fc75b149)    
+![dos-11feda41b23139f0de73ed8c634dc6e920241016110235](https://raw.githubusercontent.com/dhifanrazaqa/Predictive_analysis/refs/heads/main/dos-11feda41b23139f0de73ed8c634dc6e920241016110235.jpg)    
 Mean Absolute Error (MAE) mengukur rata-rata selisih absolut antara nilai aktual dan prediksi tanpa mengkuadratkan error sehingga tidak terlalu dipengaruhi oleh outlier dibandingkan MSE atau RMSE. MAE lebih mudah diinterpretasikan karena nilainya dalam skala yang sama dengan variabel target. Namun, MAE tidak menangkap kesalahan dengan cara yang sama seperti MSE atau RMSE sehingga tidak memberikan bobot lebih pada kesalahan besar.
 
 ### R² Score
-![dos-f54b3a820aa37b345729c961c3e01f4f20241016110235](https://github.com/user-attachments/assets/ec3615f4-96cd-4852-b816-b5b2dd664c67)    
+![dos-f54b3a820aa37b345729c961c3e01f4f20241016110235](https://raw.githubusercontent.com/dhifanrazaqa/Predictive_analysis/refs/heads/main/dos-f54b3a820aa37b345729c961c3e01f4f20241016110235.jpg)    
 R² juga dikenal sebagai coefficient of determination adalah salah satu metrik yang digunakan untuk mengevaluasi seberapa baik model regresi linear menjelaskan variasi dalam data. R² memberikan ukuran proporsi variasi dalam variabel dependen (output) yang dapat dijelaskan oleh variabel independen (input) dalam model. R² dihitung dengan menggunakan perbandingan antara variasi total dalam data dan variasi yang dapat dijelaskan oleh model regresi.
 
 ### Hasil Evaluasi
